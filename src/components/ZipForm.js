@@ -7,11 +7,12 @@ class ZipForm extends Component {
       zipcode: ""
     };
     this.inputUpdated = this.inputUpdated.bind(this);
+    this.submitZipCode = this.submitZipCode.bind(this);
   }
   render() {
     return (
-      <div clasName="zip-form">
-        <form>
+      <div className="zip-form">
+        <form onSubmit={this.submitZipCode}>
           <label htmlFor="zipcode">Zip Code</label>
           <input
             className="form-control"
@@ -31,6 +32,15 @@ class ZipForm extends Component {
   inputUpdated(e) {
     const { value } = e.target;
     this.setState({ zipcode: value });
+  }
+
+  submitZipCode(e) {
+    e.preventDefault();
+    const { zipcode } = this.state;
+    const { onSubmit } = this.props;
+
+    onSubmit(zipcode);
+    this.setState({ zipcode: "" });
   }
 }
 
